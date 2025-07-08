@@ -59,15 +59,3 @@ int get_random_int(std::mt19937 *MT, int from, int to)
 {
   return get_random_int(*MT, from, to);
 }
-
-std::ostream &operator<<(std::ostream &os, const std::vector<int> &arr)
-{
-  for (auto ele : arr) os << ele << ",";
-  return os;
-}
-
-std::ostream &operator<<(std::ostream &os, const std::set<int> &arr)
-{
-  for (auto ele : arr) os << ele << ",";
-  return os;
-}

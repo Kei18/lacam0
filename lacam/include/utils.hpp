@@ -73,6 +73,23 @@ void warn(Body &&...body)
   info(0, 0, "[warning] ", (body)...);
 }
 
-std::ostream &operator<<(std::ostream &os, const std::vector<int> &arr);
-std::ostream &operator<<(std::ostream &os, const std::list<int> &arr);
-std::ostream &operator<<(std::ostream &os, const std::set<int> &arr);
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &arr)
+{
+  for (auto ele : arr) os << ele << ",";
+  return os;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::list<int> &arr)
+{
+  for (auto ele : arr) os << ele << ",";
+  return os;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::set<int> &arr)
+{
+  for (auto ele : arr) os << ele << ",";
+  return os;
+}
