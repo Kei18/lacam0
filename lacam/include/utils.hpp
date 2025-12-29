@@ -49,10 +49,7 @@ int get_random_int(std::mt19937 *MT, int from = 0, int to = 1);
 int get_random_int(std::mt19937 &MT,
                    std::uniform_int_distribution<int> &dist);
 
-template <typename Head, typename... Tail>
-void info(const int level, const int verbose, Head &&head, Tail &&...tail);
-
-void info(const int level, const int verbose);
+inline void info(const int level, const int verbose) { std::cout << std::endl; }
 
 template <typename Head, typename... Tail>
 void info(const int level, const int verbose, Head &&head, Tail &&...tail)

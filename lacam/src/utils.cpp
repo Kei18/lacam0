@@ -1,7 +1,5 @@
 #include "../include/utils.hpp"
 
-void info(const int level, const int verbose) { std::cout << std::endl; }
-
 Deadline::Deadline(double _time_limit_ms)
     : t_s(Time::now()), time_limit_ms(_time_limit_ms)
 {
