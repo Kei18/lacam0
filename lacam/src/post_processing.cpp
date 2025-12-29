@@ -86,6 +86,12 @@ void make_log(const Instance &ins, const Solution &solution,
 
   // for instance-specific values
   auto dist_table = DistTable(ins);
+  const auto soc = get_sum_of_costs(solution);
+  const auto soc_lb = get_sum_of_costs_lower_bound(ins, dist_table);
+  const auto makespan = get_makespan(solution);
+  const auto makespan_lb = get_makespan_lower_bound(ins, dist_table);
+  const auto sum_of_loss = get_sum_of_loss(solution);
+  const auto sum_of_loss_lb = get_sum_of_costs_lower_bound(ins, dist_table);
 
   // log for visualizer
   auto get_x = [&](int k) { return k % ins.G.width; };
@@ -96,13 +102,12 @@ void make_log(const Instance &ins, const Solution &solution,
   log << "map_file=" << map_recorded_name << "\n";
   log << "solver=planner\n";
   log << "solved=" << !solution.empty() << "\n";
-  log << "soc=" << get_sum_of_costs(solution) << "\n";
-  log << "soc_lb=" << get_sum_of_costs_lower_bound(ins, dist_table) << "\n";
-  log << "makespan=" << get_makespan(solution) << "\n";
-  log << "makespan_lb=" << get_makespan_lower_bound(ins, dist_table) << "\n";
-  log << "sum_of_loss=" << get_sum_of_loss(solution) << "\n";
-  log << "sum_of_loss_lb=" << get_sum_of_costs_lower_bound(ins, dist_table)
-      << "\n";
+  log << "soc=" << soc << "\n";
+  log << "soc_lb=" << soc_lb << "\n";
+  log << "makespan=" << makespan << "\n";
+  log << "makespan_lb=" << makespan_lb << "\n";
+  log << "sum_of_loss=" << sum_of_loss << "\n";
+  log << "sum_of_loss_lb=" << sum_of_loss_lb << "\n";
   log << "comp_time=" << comp_time_ms << "\n";
   log << "seed=" << seed << "\n";
   if (log_short) return;
@@ -119,7 +124,7 @@ void make_log(const Instance &ins, const Solution &solution,
   log << "\nsolution=\n";
   for (size_t t = 0; t < solution.size(); ++t) {
     log << t << ":";
-    auto C = solution[t];
+    const auto &C = solution[t];
     for (auto v : C) {
       log << "(" << get_x(v->index) << "," << get_y(v->index) << "),";
     }

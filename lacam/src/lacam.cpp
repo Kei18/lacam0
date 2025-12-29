@@ -14,7 +14,7 @@ bool CompareHNodePointers::operator()(const HNode *l, const HNode *r) const
 }
 
 HNode::HNode(Config _Q, DistTable *D, HNode *_parent, int _g, int _h)
-    : Q(_Q),
+    : Q(std::move(_Q)),
       parent(_parent),
       neighbors(),
       g(_g),
@@ -161,7 +161,9 @@ Solution LaCAM::solve()
     auto iter = EXPLORED.find(Q_to);
     if (iter == EXPLORED.end()) {
       // new one -> insert
-      auto H_new = new HNode(Q_to, D, H, get_g_val(H, Q_to), get_h_val(Q_to));
+      const auto g_val = get_g_val(H, Q_to);
+      const auto h_val = get_h_val(Q_to);
+      auto H_new = new HNode(std::move(Q_to), D, H, g_val, h_val);
       OPEN.push_front(H_new);
       EXPLORED[H_new->Q] = H_new;
       GC_HNodes.push_back(H_new);

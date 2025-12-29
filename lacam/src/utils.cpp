@@ -50,6 +50,12 @@ float get_random_float(std::mt19937 *MT, float from, float to)
   return get_random_float(*MT, from, to);
 }
 
+float get_random_float(std::mt19937 &MT,
+                       std::uniform_real_distribution<float> &dist)
+{
+  return dist(MT);
+}
+
 int get_random_int(std::mt19937 &MT, int from, int to)
 {
   return std::uniform_int_distribution<int>(from, to)(MT);
@@ -58,4 +64,9 @@ int get_random_int(std::mt19937 &MT, int from, int to)
 int get_random_int(std::mt19937 *MT, int from, int to)
 {
   return get_random_int(*MT, from, to);
+}
+
+int get_random_int(std::mt19937 &MT, std::uniform_int_distribution<int> &dist)
+{
+  return dist(MT);
 }

@@ -42,8 +42,12 @@ bool is_expired(const Deadline &deadline);
 
 float get_random_float(std::mt19937 &MT, float from = 0, float to = 1);
 float get_random_float(std::mt19937 *MT, float from = 0, float to = 1);
+float get_random_float(std::mt19937 &MT,
+                       std::uniform_real_distribution<float> &dist);
 int get_random_int(std::mt19937 &MT, int from = 0, int to = 1);
 int get_random_int(std::mt19937 *MT, int from = 0, int to = 1);
+int get_random_int(std::mt19937 &MT,
+                   std::uniform_int_distribution<int> &dist);
 
 template <typename Head, typename... Tail>
 void info(const int level, const int verbose, Head &&head, Tail &&...tail);
@@ -76,20 +80,20 @@ void warn(Body &&...body)
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &arr)
 {
-  for (auto ele : arr) os << ele << ",";
+  for (const auto &ele : arr) os << ele << ",";
   return os;
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &os, const std::list<int> &arr)
+std::ostream &operator<<(std::ostream &os, const std::list<T> &arr)
 {
-  for (auto ele : arr) os << ele << ",";
+  for (const auto &ele : arr) os << ele << ",";
   return os;
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &os, const std::set<int> &arr)
+std::ostream &operator<<(std::ostream &os, const std::set<T> &arr)
 {
-  for (auto ele : arr) os << ele << ",";
+  for (const auto &ele : arr) os << ele << ",";
   return os;
 }
