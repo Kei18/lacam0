@@ -119,8 +119,8 @@ Solution LaCAM::solve()
     // do not pop here!
     auto H = OPEN.front();  // high-level node
 
-    // check uppwer bounds
-    if (H_goal != nullptr && H->g >= H_goal->g) {
+    // check upper bounds
+    if (H_goal != nullptr && H->f >= H_goal->g) {
       OPEN.pop_front();
       solver_info(5, "prune, g=", H->g, " >= ", H_goal->g);
       OPEN.push_front(H_init);
